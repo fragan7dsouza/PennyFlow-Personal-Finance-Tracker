@@ -1,73 +1,177 @@
-# Welcome to your Lovable project
+# 💸 PennyFlow - Personal Finance Tracker
 
-## Project info
+A clean, minimal **React and TypeScript web application** designed for effortless personal finance tracking.
+Built with **Vite, React (TSX), and Tailwind CSS (shadcn/ui)**, and powered by **Supabase** for robust authentication and database management.
 
-**URL**: https://lovable.dev/projects/fe5855ef-cbd2-45e7-b752-ebfdb92d05ee
+-----
 
-## How can I edit this code?
+## ⚙️ Features
 
-There are several ways of editing your application.
+  - ✅ **Secure Authentication (`/`)**
 
-**Use Lovable**
+      - Users can **Sign Up** and **Sign In** to their personal account.
+      - Routes are protected, requiring authentication to access main features.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fe5855ef-cbd2-45e7-b752-ebfdb92d05ee) and start prompting.
+  - ✅ **Dashboard Overview (`/dashboard`)**
 
-Changes made via Lovable will be committed automatically to this repo.
+      - View real-time financial summaries for the current month: **Total Income, Total Expenses, and Net Balance**.
+      - Visualize spending with interactive charts, including **Expenses by Category** and **Income vs Expenses**.
 
-**Use your preferred IDE**
+  - ✅ **Transaction Management (`/transactions`)**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+      - Perform **CRUD operations** (Add, Edit, Delete) on all income and expense records.
+      - Easily filter and search transactions by category, type (income/expense), and date range.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+  - ✅ **Category Management (`/categories`)**
 
-Follow these steps:
+      - Create, view, edit, and delete custom categories for organizing transactions, each with a unique color.
+
+-----
+
+## 🧩 Technical Overview
+
+### 🏗️ Architecture Layers
+
+| Layer | Files/Components | Description |
+| :---- | :---------------- | :----------- |
+| **Presentation (UI)** | `src/components/ui/*` | Custom components using shadcn/ui and Radix Primitives for a consistent interface. |
+| **View (Pages)** | `src/pages/*` | Defines the main application views (e.g., Dashboard, Transactions, Auth). |
+| **Logic/Routing** | `src/App.tsx`, `react-router-dom` | Manages component routing, state containers, and core feature logic. |
+| **Data/Auth Service** | `src/integrations/supabase/client.ts` | Centralized Supabase client for all database and authentication interactions. |
+
+-----
+
+## 📁 Project Structure
+
+```
+PennyFlow-Personal-Finance-Tracker/
+│
+├── src/
+│   ├── components/
+│   │   ├── ui/      (UI components: Button, Card, Table, etc.)
+│   │   ├── Layout.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── TransactionModal.tsx
+│   │   └── ...
+│   │
+│   ├── hooks/
+│   │   └── use-toast.ts
+│   │
+│   ├── integrations/supabase/
+│   │   └── client.ts
+│   │
+│   ├── pages/
+│   │   ├── Auth.tsx
+│   │   ├── Dashboard.tsx
+│   │   ├── Transactions.tsx
+│   │   └── Categories.tsx
+│   │
+│   └── App.tsx
+│
+├── supabase/
+│   └── migrations/
+│       └── 20251114090507_...sql (Database schema)
+│
+├── .env
+├── package.json
+└── README.md
+```
+
+-----
+
+## ⚙️ Setup & Configuration
+
+### 1️⃣ Supabase Database Setup
+
+The project is configured to use two primary tables, which should be set up in your Supabase project (Project ID: `czseqghbzfmfwsbrytab`):
+
+1.  **`categories`**: Stores user-defined categories with an assigned color.
+2.  **`transactions`**: Stores financial entries (income/expense) linked to a user and a category.
+
+The necessary tables and Row Level Security (RLS) policies, including a trigger to auto-seed default categories for new users, are defined in the SQL migration file.
+
+### 2️⃣ Environment Variables
+
+Configure your project by creating a `.env` file in the root directory with your Supabase credentials.
+
+```
+# Supabase Project ID is already set in supabase/config.toml
+VITE_SUPABASE_PROJECT_ID="czseqghbzfmfwsbrytab"
+# Replace with your actual public key and URL
+VITE_SUPABASE_PUBLISHABLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6c2VxZ2hiemZtZndzYnJ5dGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMwODQ5OTMsImV4cCI6MjA3ODY2MDk5M30.U10P1bT_Nvm4mgv0PtioMete7tsjfrgF9oq2ysX0-cA"
+VITE_SUPABASE_URL="https://czseqghbzfmfwsbrytab.supabase.co"
+```
+
+### 3️⃣ Installation
+
+Install the required dependencies using npm or yarn:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+npm install
+# or
+yarn install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+-----
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚀 Deployment
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+This project uses **Vite** for its build process.
+
+**Start the development server:**
+
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Access in browser: `http://localhost:8080` (or the URL provided by Vite).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Build for production:**
 
-**Use GitHub Codespaces**
+```sh
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+-----
 
-## What technologies are used for this project?
+## 💡 Example Usage
 
-This project is built with:
+### 🔐 Initial Access
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+  * Go to the homepage (`/`)
+  * **Sign Up** with a new email and password
+  * You will be redirected to the **Sign In** tab to log in
 
-## How can I deploy this project?
+### ➕ Add a Transaction
 
-Simply open [Lovable](https://lovable.dev/projects/fe5855ef-cbd2-45e7-b752-ebfdb92d05ee) and click on Share -> Publish.
+  * Navigate to **Transactions** (`/transactions`).
+  * Click **"Add Transaction"**.
+  * Enter **Amount**, select **Type** (Income/Expense), choose a **Category**, and set the **Date**.
 
-## Can I connect a custom domain to my Lovable project?
+### 📊 View Financial Summary
 
-Yes, you can!
+  * Navigate to **Dashboard** (`/dashboard`).
+  * See immediate updates to your Total Income, Expenses, and Net Balance for the current month.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+-----
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 📌 Notes
+
+  * Authentication and database persistence are handled by **Supabase**.
+  * The UI is built with **Tailwind CSS** utility classes and custom components (shadcn/ui flavor).
+  * The application uses client-side routing with `react-router-dom`.
+
+-----
+
+## 👨‍💻 Author
+
+**Fragan Dsouza**
+
+📎 [LinkedIn](https://linkedin.com/in/fragan-dsouza)
+💻 [GitHub](https://github.com/fragan7dsouza)
+
+-----
+
+## 📜 License
+
+This project is **open-source** and free to use under the **MIT License**.
