@@ -1,6 +1,6 @@
 # 💸 PennyFlow - Personal Finance Tracker
 
-A clean, minimal **React and TypeScript web application** designed for effortless personal finance tracking.
+A clean, minimal **React and TypeScript web application** designed **USING LOVABLE AI FOR EXPERIMENTAL PURPOSES** & for effortless personal finance tracking.
 Built with **Vite, React (TSX), and Tailwind CSS (shadcn/ui)**, and powered by **Supabase** for robust authentication and database management.
 
 -----
