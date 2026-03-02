@@ -25,6 +25,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { formatCurrency } from "@/lib/utils";
 
 interface Transaction {
   id: string;
@@ -77,7 +78,7 @@ const Transactions = () => {
       if (error) throw error;
       setTransactions((data || []) as Transaction[]);
     } catch (error) {
-      console.error("Error fetching transactions:", error);
+      console.error("error fetching transactions:", error);
     } finally {
       setLoading(false);
     }
@@ -209,7 +210,7 @@ const Transactions = () => {
                       </Badge>
                     </TableCell>
                     <TableCell className={transaction.type === "income" ? "text-success font-semibold" : "text-destructive font-semibold"}>
-                      ${Number(transaction.amount).toFixed(2)}
+                      {formatCurrency(transaction.amount)}
                     </TableCell>
                     <TableCell className="max-w-[200px] truncate">
                       {transaction.note || "-"}

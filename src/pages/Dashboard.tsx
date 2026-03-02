@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpCircle, ArrowDownCircle, Wallet } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
+import { formatCurrency } from "@/lib/utils";
 
 interface Transaction {
   id: string;
@@ -31,7 +32,7 @@ const Dashboard = () => {
       if (error) throw error;
       setTransactions((data || []) as Transaction[]);
     } catch (error) {
-      console.error("Error fetching transactions:", error);
+      console.error("error fetching transactions:", error);
     } finally {
       setLoading(false);
     }
@@ -99,7 +100,7 @@ const Dashboard = () => {
               <ArrowUpCircle className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-success">${totalIncome.toFixed(2)}</div>
+              <div className="text-2xl font-bold text-success">{formatCurrency(totalIncome)}</div>
               <p className="text-xs text-muted-foreground">Current month</p>
             </CardContent>
           </Card>
@@ -110,7 +111,7 @@ const Dashboard = () => {
               <ArrowDownCircle className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-destructive">${totalExpenses.toFixed(2)}</div>
+              <div className="text-2xl font-bold text-destructive">{formatCurrency(totalExpenses)}</div>
               <p className="text-xs text-muted-foreground">Current month</p>
             </CardContent>
           </Card>
@@ -122,7 +123,7 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className={`text-2xl font-bold ${netBalance >= 0 ? "text-success" : "text-destructive"}`}>
-                ${netBalance.toFixed(2)}
+                {formatCurrency(netBalance)}
               </div>
               <p className="text-xs text-muted-foreground">Current month</p>
             </CardContent>
@@ -143,7 +144,7 @@ const Dashboard = () => {
                       cx="50%"
                       cy="50%"
                       labelLine={false}
-                      label={(entry) => `${entry.name}: $${entry.value.toFixed(2)}`}
+                      label={(entry) => `${entry.name}: ${formatCurrency(entry.value)}`}
                       outerRadius={80}
                       fill="#8884d8"
                       dataKey="value"
@@ -152,7 +153,7 @@ const Dashboard = () => {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
+                    <Tooltip formatter={(value: number) => formatCurrency(value)} />
                     <Legend />
                   </PieChart>
                 </ResponsiveContainer>
@@ -174,7 +175,7 @@ const Dashboard = () => {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
+                  <Tooltip formatter={(value: number) => formatCurrency(value)} />
                   <Bar dataKey="value" fill="hsl(var(--primary))" />
                 </BarChart>
               </ResponsiveContainer>
